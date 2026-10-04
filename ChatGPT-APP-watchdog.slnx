@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ChatGptWatchdog.App/ChatGptWatchdog.App.csproj" />
+    <Project Path="src/ChatGptWatchdog.Core/ChatGptWatchdog.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ChatGptWatchdog.SelfTest/ChatGptWatchdog.SelfTest.csproj" />
+  </Folder>
+</Solution>

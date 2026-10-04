@@ -1,0 +1,53 @@
+name: build
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Self-test
+        run: dotnet run --project tests/ChatGptWatchdog.SelfTest -c Release
+
+      - name: Publish (self-contained single exe)
+        run: >
+          dotnet publish src/ChatGptWatchdog.App/ChatGptWatchdog.App.csproj -c Release -r win-x64 --self-contained true
+          -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
+          -o artifacts/self-contained
+
+      - name: Publish (framework-dependent single exe)
+        run: >
+          dotnet publish src/ChatGptWatchdog.App/ChatGptWatchdog.App.csproj -c Release -r win-x64 --self-contained false
+          -p:PublishSingleFile=true -o artifacts/framework
+
+      - name: Zip
+        shell: pwsh
+        run: |
+          Compress-Archive -Force artifacts/self-contained/ChatGPT-APP-watchdog.exe artifacts/ChatGPT-APP-watchdog-win-x64.zip
+          Compress-Archive -Force artifacts/framework/ChatGPT-APP-watchdog.exe artifacts/ChatGPT-APP-watchdog-win-x64-framework.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ChatGPT-APP-watchdog
+          path: artifacts/*.zip
+
+      - name: GitHub release (tags only)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/*.zip
+          generate_release_notes: true

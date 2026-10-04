@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <!-- UseWPF gives access to System.Windows.Automation (UI Automation client) for the resume feature. -->
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>ChatGptWatchdog.App</RootNamespace>
+    <AssemblyName>ChatGPT-APP-watchdog</AssemblyName>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <Version>0.1.0</Version>
+    <Product>ChatGPT APP watchdog</Product>
+    <Company>Nicky Verslycken</Company>
+    <Copyright>Copyright (c) 2026 Nicky Verslycken. MIT License.</Copyright>
+    <Description>Keeps the ChatGPT / Codex desktop app running on Windows and can resume interrupted chats.</Description>
+    <NoWarn>$(NoWarn);CA1416;WFO5001;WFO5002</NoWarn>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ChatGptWatchdog.Core\ChatGptWatchdog.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\*.ico" LogicalName="%(Filename)%(Extension)" />
+  </ItemGroup>
+
+</Project>
