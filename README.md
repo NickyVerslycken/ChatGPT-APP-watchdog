@@ -8,6 +8,24 @@ A small Windows tray app that keeps the **ChatGPT / Codex desktop app** running.
 
 On Windows the ChatGPT desktop app (with Codex) sometimes closes by itself. Anything running in it then stops, including scheduled automations, until someone notices and starts the app again. The watchdog does that for you and logs what happened.
 
+## Screenshots
+
+**Main window.** Live status, restart counters and a log of what the watchdog sees and does.
+
+<p align="center"><img src="docs/screenshots/main-window.png" alt="Main window showing 'Watching - ChatGPT is running' and the live log" width="760"></p>
+
+**Tray icon states.** The tray icon always shows the current state at a glance.
+
+<p align="center"><img src="docs/screenshots/tray-icons.png" alt="The four tray icon states: watching, working, crash loop and not watching" width="760"></p>
+
+**Settings.** Monitoring, restart rules, crash-loop protection and the target app...
+
+<p align="center"><img src="docs/screenshots/settings-general.png" alt="Settings window, General tab" width="520"></p>
+
+...and the optional chat resume, with the method order and the message that is sent.
+
+<p align="center"><img src="docs/screenshots/settings-resume-chats.png" alt="Settings window, Resume chats tab" width="520"></p>
+
 ## Features
 
 - **Monitoring** at a configurable interval (for example every 1, 5 or 10 minutes). It can also react **instantly** when the app's main process exits.
